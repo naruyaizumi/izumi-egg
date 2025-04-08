@@ -1,0 +1,18 @@
+FROM ubuntu:22.04
+
+LABEL maintainer="naruyaizumi"
+LABEL version="22.04"
+LABEL description="Ubuntu Jammy base © Naruya Izumi."
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Jakarta
+
+RUN apt update && \
+    apt install -y curl ca-certificates tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    apt clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+CMD ["/bin/bash"]
